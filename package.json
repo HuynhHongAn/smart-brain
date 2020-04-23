@@ -10,7 +10,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "react-tilt": "latest",
-    "react-particles-js": "latest"
+    "react-particles-js": "latest",
+    "tachyons": "latest",
+    "clarifai": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
