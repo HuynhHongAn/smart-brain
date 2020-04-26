@@ -96,6 +96,10 @@ class App extends Component {
                             id: this.state.user.id,
                         })
                     })
+                        .then(response => {
+                            response.json()
+                        })
+                        .then(count => { this.setState({users: {entries: count}})})
                 }
                 this.displayFaceBox(this.calculateFaceLocation(response)) },
             err => { console.log("Error", err) }
@@ -122,7 +126,7 @@ class App extends Component {
                 { this.state.route === "home"
                     ? <div>
                         <Logo/>
-                        <Rank />
+                        <Rank user={this.state.user} />
                         <ImageLinkForm
                             onInputChange={this.onInputChange}
                             onButtonClick={this.onSubmitButtonClick}
@@ -131,8 +135,10 @@ class App extends Component {
                             box={this.state.box}
                             imageURL={this.state.imageURL}/>
                     </div>
-                    : this.state.route === "signin" || this.state.route === "signout"
-                        ? <SignIn onRouteChange={this.onRouteChange}/>
+                    : (this.state.route === "signin" || this.state.route === "signout")
+                        ? <SignIn
+                            loadUser={this.loadUser}
+                            onRouteChange={this.onRouteChange}/>
                         : <Register
                             loadUser={this.loadUser}
                             onRouteChange={this.onRouteChange}/>
