@@ -12,7 +12,8 @@
     "react-tilt": "latest",
     "react-particles-js": "latest",
     "tachyons": "latest",
-    "clarifai": "latest"
+    "clarifai": "latest",
+    "bootstrap": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

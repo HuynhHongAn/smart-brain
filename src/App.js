@@ -36,7 +36,25 @@ class App extends Component {
             box: {},
             route: 'signin',
             isSignin: false,
+            user: {
+                id: "",
+                name:"",
+                email:"",
+                entries:0,
+                joined:"",
+            }
         }
+    }
+
+    loadUser = (data) => {
+        this.setState({user: {
+                id: data.id,
+                name: data.name,
+                email: data.email,
+                entries: data.entries,
+                joined: data.joined
+            }
+        })
     }
 
     calculateFaceLocation = (data) => {
@@ -68,6 +86,17 @@ class App extends Component {
             this.state.input,
         ).then(
             response => {
+                if (response) {
+                    fetch("http://localhost:3000/image", {
+                        method: "PUT",
+                        headers: {
+                            'Content-Type': "application/json"
+                        },
+                        body: JSON.stringify({
+                            id: this.state.user.id,
+                        })
+                    })
+                }
                 this.displayFaceBox(this.calculateFaceLocation(response)) },
             err => { console.log("Error", err) }
         );
@@ -104,7 +133,9 @@ class App extends Component {
                     </div>
                     : this.state.route === "signin" || this.state.route === "signout"
                         ? <SignIn onRouteChange={this.onRouteChange}/>
-                        : <Register onRouteChange={this.onRouteChange}/>
+                        : <Register
+                            loadUser={this.loadUser}
+                            onRouteChange={this.onRouteChange}/>
 
                 }
 
